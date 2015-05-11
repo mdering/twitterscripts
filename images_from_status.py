@@ -34,7 +34,6 @@ for line in f:
 	if lastid in l:
 		cont=0
 	if cont==1:
-		print "moving on"
 		continue;
 	tweets=twitter.lookup_status(id=l);
 	for data in tweets:
@@ -51,7 +50,7 @@ for line in f:
 				image_url = pic['media_url']
 				g.write(data['id_str'].encode('utf-8')+","+name.encode('utf-8')+","+data['text'].encode('utf-8')+","+image_url.encode('utf-8')+"\n")
 				count+=1
-			g.flush()
+	g.flush()
 	print count, lineno*100
 	print "sleeping for 5 seconds"
 	time.sleep(6)
