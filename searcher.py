@@ -31,10 +31,10 @@ for i in range(0,MAX_ATTEMPTS):
 	# STEP 1: Query Twitter
 	if(0 == i):
 		# Query twitter for data. 
-		results	= api.search(q="#SuperBowl since:2015-02-01 until:2015-02-02",count='100')
+		results	= api.search(q='#SuperBowl', since='2015-02-02', until='2015-02-02',count='100')
 	else:
 		# After the first call we should have max_id from result of previous call. Pass it in query.
-		results	= api.search(q="#SuperBowl since:2015-02-01 until:2015-02-02",include_entities='true',max_id=next_max_id)
+		results	= api.search(q='#SuperBowl', since='2015-02-02', until='2015-02-02',include_entities='true',max_id=next_max_id)
 
 	# STEP 2: Save the returned tweets
 	for result in results['statuses']:
@@ -45,6 +45,7 @@ for i in range(0,MAX_ATTEMPTS):
 	# STEP 3: Get the next max_id
 	try:
 		# Parse the data returned to get max_id to be passed in consequent call.
+		print "more pages"
 		next_results_url_params	= results['search_metadata']['next_results']
 		next_max_id		= next_results_url_params.split('max_id=')[1].split('&')[0]
 	except:
