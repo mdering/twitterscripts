@@ -21,7 +21,8 @@ c = conn.cursor()
 
 c.execute('''CREATE TABLE IF NOT EXISTS jsons (
     id       INTEGER       PRIMARY KEY AUTOINCREMENT,
-    tweet_id VARCHAR (100) NOT NULL,
+    tweet_id VARCHAR (100) NOT NULL
+                           UNIQUE ON CONFLICT REPLACE,
     json     TEXT
 );''')
 
