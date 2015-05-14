@@ -4,7 +4,7 @@ from twython import Twython
 import time
 import os.path
 import json
-import sqlite3
+import MySQLdb
 from tokens import *
 
 #create a tweets.db sqlite file. 
@@ -16,27 +16,18 @@ from tokens import *
 #);
 
 
-conn = sqlite3.connect('tweets.db')
+conn = MySQLdb.connect(user=un,passwd=pw,db='mld284')
 c = conn.cursor()
-
-c.execute('''CREATE TABLE IF NOT EXISTS jsons (
-    id       INTEGER       PRIMARY KEY AUTOINCREMENT,
-    tweet_id VARCHAR (100) NOT NULL
-                           UNIQUE ON CONFLICT REPLACE,
-    json     TEXT
-);''')
-
-conn.commit();
 
 twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 
-f = open('matt_links.csv','r')
+f = open('fixed_sdlinks.csv','r')
 
 lastid="1";
 
-query = "Select tweet_id from jsons order by id DESC LIMIT 1;"
+query = "Select tweet_id from san_diego_jsons order by id DESC LIMIT 1;"
 
 c.execute(query);
 
@@ -63,7 +54,7 @@ for line in f:
 	for tweet in tweets:
 		inserts.append((tweet['id_str'],json.dumps(tweet)))
 		count+=1
-	c.executemany('INSERT INTO jsons (tweet_id, json) VALUES (?,?)', inserts)
+	c.executemany('INSERT INTO san_diego_jsons (tweet_id, json) VALUES (%s,%s)', inserts)
 	conn.commit();
 	print count, lineno*100
 	print "sleeping for 5 seconds"
