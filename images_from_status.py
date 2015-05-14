@@ -2,7 +2,7 @@
 
 from twython import Twython
 import time
-
+import os.path
 from tokens import *
 
 
@@ -12,19 +12,21 @@ twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 
-f = open('fixed_sdlinks.csv','r')
+f = open('matt_links.csv','r')
 
-lastid=0;
-g =open('sd_images.csv','r')
+lastid="1";
+if os.path.exists("matt_images.csv"):
+	g =open('matt_images.csv','r')
 
-for line in g:
-	lastid=line.split(",")[0]
+	for line in g:
+		lastid=line.split(",")[0]
 
-g.close()
+	g.close()
+	cont = 1;
+else:
+	cont=0;
 
-g=open('sd_images.csv','a')
-
-cont = 1;
+g=open('matt_images.csv','a')
 
 count = 0
 lineno = 0
@@ -42,7 +44,8 @@ for line in f:
 		#if 'text' in data:
 			#print name.encode('utf-8')+": "+data['text'].encode('utf-8')
 		#for url in data['entities']['urls']:
-		#	print url['expanded_url'];
+		#	if url['expanded_url'].startswith("http://instagr.am") or url['expanded_url'].startswith("http://instagram.com"):
+				
 		if 'media' in data['entities']:
 			#print len(data['entities']['media'])
 			for i in range(0,len(data['entities']['media'])):
@@ -53,7 +56,7 @@ for line in f:
 	g.flush()
 	print count, lineno*100
 	print "sleeping for 5 seconds"
-	time.sleep(6)
+	time.sleep(5)
 
 
 
