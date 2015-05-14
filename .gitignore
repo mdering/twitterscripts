@@ -4,3 +4,5 @@ tokens.pyc
 tokens.py
 
 *.csv
+
+*.db
