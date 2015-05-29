@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 
-from twython import Twython
 import time
 import os.path
 import json
-import MySQLdb
-from tokens import *
-
 
 f = open("tweets.txt")
 
