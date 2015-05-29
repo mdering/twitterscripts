@@ -9,6 +9,8 @@ f = open("tweets.txt")
 images = []
 urls = []
 for line in f:
+	if '|' not in line:
+		continue
 	tweet=line.strip().split("|")
 	if len(tweet)>1:
 		js = '|'.join(tweet[1:])
@@ -16,7 +18,7 @@ for line in f:
 		continue
 	data=json.loads(js)
 	if 'entities' in data:
-		if 'media' in data['entites']:
+		if 'media' in data['entities']:
 			for pic in data['entities']['media']:
 				#print data['id_str'],pic['media_url']
 
