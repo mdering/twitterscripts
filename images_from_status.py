@@ -12,11 +12,11 @@ twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 
-f = open('matt_links.csv','r')
+f = open('boston100.txt','r')
 
 lastid="1";
-if os.path.exists("matt_images.csv"):
-	g =open('matt_images.csv','r')
+if os.path.exists("boston100.csv"):
+	g =open('boston100.csv','r')
 
 	for line in g:
 		lastid=line.split(",")[0]
@@ -26,7 +26,7 @@ if os.path.exists("matt_images.csv"):
 else:
 	cont=0;
 
-g=open('matt_images.csv','a')
+g=open('bostonpics.txt','a')
 
 count = 0
 lineno = 0

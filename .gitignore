@@ -6,3 +6,7 @@ tokens.py
 *.csv
 
 *.db
+
+*.pkl
+
+*.xml
